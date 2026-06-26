@@ -4,14 +4,12 @@ body {
 }
 
 .product-card {
-  height: 100%;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: .2s;
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
 }
 
 .product-card__image {
@@ -29,4 +27,45 @@ body {
   width: 90px;
   height: 90px;
   object-fit: contain;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e9ecef 25%, #f8f9fa 50%, #e9ecef 75%);
+  background-size: 200% 100%;
+  border-radius: 0.5rem;
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+.skeleton-image {
+  height: 220px;
+  margin: 1rem;
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 85%;
+}
+
+.skeleton-text {
+  height: 16px;
+  width: 100%;
+}
+
+.skeleton-text-short {
+  width: 60%;
+}
+
+.skeleton-button {
+  height: 38px;
+  width: 100%;
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }

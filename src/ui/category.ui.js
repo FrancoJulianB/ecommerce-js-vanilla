@@ -25,7 +25,7 @@ export function renderCategories(categories, selectedCategory = "all") {
       data-action="filter-category"
       data-category="all"
     >
-      Todos
+      All
     </button>
 
     ${categories
