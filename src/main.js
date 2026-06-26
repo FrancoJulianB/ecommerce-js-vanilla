@@ -3,7 +3,7 @@ import { appState } from "./state/app.state.js";
 import { renderProducts } from "./ui/product.ui.js";
 import { openProductModal, closeProductModal } from "./ui/modal.ui.js";
 import { getStoredCart, saveCart } from "./repositories/cart.repository.js";
-import { updateCartBadge } from "./ui/cart.ui.js";
+import { renderCart, updateCartBadge } from "./ui/cart.ui.js";
 
 function findProductById(productId) {
   return appState.products.find((product) => product.id === productId);
@@ -26,6 +26,7 @@ function addProductToCart(product) {
 
   saveCart(appState.cart);
   updateCartBadge(appState.cart);
+  renderCart(appState.cart);
   closeProductModal();
 
 }
@@ -67,7 +68,7 @@ async function initializeApplication() {
 
   renderProducts(appState.filteredProducts);
   updateCartBadge(appState.cart);
-
+  renderCart(appState.cart);
   document
     .querySelector("#productsContainer")
     .addEventListener("click", handleProductCatalogClick);
