@@ -1,7 +1,7 @@
 import { getProducts } from "./services/product.service.js";
 import { appState } from "./state/app.state.js";
 import { renderProducts } from "./ui/product.ui.js";
-import { openProductModal, closeProductModal } from "./ui/modal.ui.js";
+import { openProductModal, closeProductModal, initializeProductModalFocusHandler } from "./ui/modal.ui.js";
 import { getStoredCart, saveCart, clearStoredCart } from "./repositories/cart.repository.js";
 import { renderCart, updateCartBadge } from "./ui/cart.ui.js";
 import { showToast } from "./ui/toast.ui.js";
@@ -194,6 +194,7 @@ async function initializeApplication() {
   updateCartBadge(appState.cart);
   renderCart(appState.cart);
   renderCategories(appState.categories, appState.selectedCategory);
+  initializeProductModalFocusHandler();
 
   document
     .querySelector("#productsContainer")

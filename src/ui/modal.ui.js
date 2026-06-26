@@ -72,3 +72,11 @@ export function openProductModal(product) {
 export function closeProductModal() {
   getProductModalInstance().hide();
 }
+
+export function initializeProductModalFocusHandler() {
+  const productModalElement = document.querySelector("#productModal");
+
+  productModalElement.addEventListener("hide.bs.modal", () => {
+    document.activeElement?.blur();
+  });
+}
