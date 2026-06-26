@@ -43,3 +43,26 @@ export function renderProducts(products) {
     .map(createProductCard)
     .join("");
 }
+
+export function renderProductSkeletons(quantity = 6) {
+  const skeletons = Array.from({ length: quantity })
+    .map(
+      () => `
+        <article class="col-12 col-md-6 col-lg-4">
+          <div class="card product-card h-100 shadow-sm" aria-hidden="true">
+            <div class="skeleton skeleton-image"></div>
+
+            <div class="card-body">
+              <div class="skeleton skeleton-title mb-3"></div>
+              <div class="skeleton skeleton-text mb-2"></div>
+              <div class="skeleton skeleton-text skeleton-text-short mb-4"></div>
+              <div class="skeleton skeleton-button"></div>
+            </div>
+          </div>
+        </article>
+      `
+    )
+    .join("");
+
+  productsContainer.innerHTML = skeletons;
+}

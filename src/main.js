@@ -1,6 +1,6 @@
 import { getProducts } from "./services/product.service.js";
 import { appState } from "./state/app.state.js";
-import { renderProducts } from "./ui/product.ui.js";
+import { renderProducts, renderProductSkeletons } from "./ui/product.ui.js";
 import { openProductModal, closeProductModal, initializeProductModalFocusHandler } from "./ui/modal.ui.js";
 import { getStoredCart, saveCart, clearStoredCart } from "./repositories/cart.repository.js";
 import { renderCart, updateCartBadge } from "./ui/cart.ui.js";
@@ -205,6 +205,8 @@ function handleCategoryClick(event) {
 }
 
 async function initializeApplication() {
+  renderProductSkeletons();
+
   appState.products = await getProducts();
   appState.filteredProducts = [...appState.products];
   appState.cart = getStoredCart();
