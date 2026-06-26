@@ -2,8 +2,14 @@ const productsContainer = document.querySelector("#productsContainer");
 
 function createProductCard(product) {
   return `
-    <article class="col-12 col-md-6 col-lg-4">
-      <div class="card product-card h-100 shadow-sm">
+    <article
+      class="col-12 col-md-6 col-lg-4"
+    >
+        <div
+          class="card product-card h-100 shadow-sm"
+          data-action="view-product"
+          data-product-id="${product.id}"
+        >
         <img
           src="${product.image}"
           class="card-img-top product-card__image"
@@ -19,13 +25,13 @@ function createProductCard(product) {
             $${product.price}
           </p>
 
-          <button
-            class="btn btn-primary mt-2"
-            data-action="view-product"
-            data-product-id="${product.id}"
-          >
-            Ver detalle
-          </button>
+            <button
+              class="btn btn-primary mt-2"
+              data-action="add-product-to-cart"
+              data-product-id="${product.id}"
+            >
+              Add to cart
+            </button>
         </div>
       </div>
     </article>
