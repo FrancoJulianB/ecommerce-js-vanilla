@@ -9,6 +9,12 @@ function findProductById(productId) {
   return appState.products.find((product) => product.id === productId);
 }
 
+function updateCartView() {
+  saveCart(appState.cart);
+  updateCartBadge(appState.cart);
+  renderCart(appState.cart);
+}
+
 function addProductToCart(product) {
   const existingCartItem = appState.cart.find((item) => item.id === product.id);
 
@@ -24,11 +30,30 @@ function addProductToCart(product) {
     });
   }
 
-  saveCart(appState.cart);
-  updateCartBadge(appState.cart);
-  renderCart(appState.cart);
+  updateCartView();
   closeProductModal();
+}
 
+function increaseCartItemQuantity(productId) {
+  const cartItem = appState.cart.find((item) => item.id === productId);
+
+  if (!cartItem) {
+    return;
+  }
+
+  cartItem.quantity += 1;
+  updateCartView();
+}
+
+function decreaseCartItemQuantity(productId) {
+  const cartItem = appState.cart.find((item) => item.id === productId);
+
+  if (!cartItem || cartItem.quantity === 1) {
+    return;
+  }
+
+  cartItem.quantity -= 1;
+  updateCartView();
 }
 
 function handleProductCatalogClick(event) {
@@ -61,6 +86,24 @@ function handleModalClick(event) {
   }
 }
 
+function handleCartClick(event) {
+  const button = event.target.closest("[data-action]");
+
+  if (!button) {
+    return;
+  }
+
+  const productId = Number(button.dataset.productId);
+
+  if (button.dataset.action === "increase-cart-item") {
+    increaseCartItemQuantity(productId);
+  }
+
+  if (button.dataset.action === "decrease-cart-item") {
+    decreaseCartItemQuantity(productId);
+  }
+}
+
 async function initializeApplication() {
   appState.products = await getProducts();
   appState.filteredProducts = [...appState.products];
@@ -69,6 +112,7 @@ async function initializeApplication() {
   renderProducts(appState.filteredProducts);
   updateCartBadge(appState.cart);
   renderCart(appState.cart);
+
   document
     .querySelector("#productsContainer")
     .addEventListener("click", handleProductCatalogClick);
@@ -76,6 +120,10 @@ async function initializeApplication() {
   document
     .querySelector("#productModalContent")
     .addEventListener("click", handleModalClick);
+
+  document
+    .querySelector("#cartItemsContainer")
+    .addEventListener("click", handleCartClick);
 }
 
 initializeApplication();
