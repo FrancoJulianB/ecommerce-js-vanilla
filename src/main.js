@@ -96,6 +96,8 @@ function handleModalClick(event) {
     return;
   }
 
+  button.blur();
+
   const productId = Number(button.dataset.productId);
   const selectedProduct = findProductById(productId);
 
