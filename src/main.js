@@ -4,6 +4,7 @@ import { renderProducts } from "./ui/product.ui.js";
 import { openProductModal, closeProductModal } from "./ui/modal.ui.js";
 import { getStoredCart, saveCart, clearStoredCart } from "./repositories/cart.repository.js";
 import { renderCart, updateCartBadge } from "./ui/cart.ui.js";
+import { showToast } from "./ui/toast.ui.js";
 
 function findProductById(productId) {
   return appState.products.find((product) => product.id === productId);
@@ -129,6 +130,18 @@ function handleClearCart() {
   clearCart();
 }
 
+function handleCheckout() {
+  appState.cart = [];
+  updateCartView();
+
+  const cartSidebarElement = document.querySelector("#cartSidebar");
+  const cartSidebar = bootstrap.Offcanvas.getInstance(cartSidebarElement);
+
+  cartSidebar.hide();
+
+  showToast("Compra finalizada correctamente.");
+}
+
 async function initializeApplication() {
   appState.products = await getProducts();
   appState.filteredProducts = [...appState.products];
@@ -153,6 +166,10 @@ async function initializeApplication() {
   document
   .querySelector("#clearCartButton")
   .addEventListener("click", handleClearCart);
+
+  document
+  .querySelector("#checkoutButton")
+  .addEventListener("click", handleCheckout);
 }
 
 initializeApplication();
