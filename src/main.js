@@ -142,6 +142,16 @@ function handleCheckout() {
   showToast("Compra finalizada correctamente.");
 }
 
+function handleSearchInput(event) {
+  const searchText = event.target.value.toLowerCase().trim();
+
+  appState.filteredProducts = appState.products.filter((product) =>
+    product.title.toLowerCase().includes(searchText)
+  );
+
+  renderProducts(appState.filteredProducts);
+}
+
 async function initializeApplication() {
   appState.products = await getProducts();
   appState.filteredProducts = [...appState.products];
@@ -170,6 +180,10 @@ async function initializeApplication() {
   document
   .querySelector("#checkoutButton")
   .addEventListener("click", handleCheckout);
+
+  document
+  .querySelector("#searchInput")
+  .addEventListener("input", handleSearchInput);
 }
 
 initializeApplication();
