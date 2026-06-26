@@ -7,6 +7,7 @@ import { renderCart, updateCartBadge } from "./ui/cart.ui.js";
 import { showToast } from "./ui/toast.ui.js";
 import { getCategories } from "./services/category.service.js";
 import { renderCategories } from "./ui/category.ui.js";
+import { openConfirmClearCartModal,closeConfirmClearCartModal } from "./ui/confirm-modal.ui.js";
 
 function findProductById(productId) {
   return appState.products.find((product) => product.id === productId);
@@ -151,7 +152,14 @@ function handleCartClick(event) {
 }
 
 function handleClearCart() {
+  openConfirmClearCartModal();
+}
+
+function handleConfirmClearCart() {
   clearCart();
+  document.activeElement?.blur();
+  closeConfirmClearCartModal();
+  showToast("Cart cleared.", "warning");
 }
 
 function handleCheckout() {
@@ -245,6 +253,10 @@ async function initializeApplication() {
   document
   .querySelector("#categoriesContainer")
   .addEventListener("click", handleCategoryClick);
+
+  document
+  .querySelector("#confirmClearCartButton")
+  .addEventListener("click", handleConfirmClearCart);
 }
 
 initializeApplication();
