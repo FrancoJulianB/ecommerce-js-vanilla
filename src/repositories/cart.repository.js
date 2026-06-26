@@ -1,9 +1,7 @@
 import { APP_CONFIG } from "../config/app.config.js";
 
 export function getStoredCart() {
-  const storedCart = localStorage.getItem(
-    APP_CONFIG.STORAGE.CART_KEY
-  );
+  const storedCart = localStorage.getItem(APP_CONFIG.STORAGE.CART_KEY);
 
   if (!storedCart) {
     return [];
@@ -13,10 +11,7 @@ export function getStoredCart() {
 }
 
 export function saveCart(cart) {
-  localStorage.setItem(
-    APP_CONFIG.STORAGE.CART_KEY,
-    JSON.stringify(cart)
-  );
+  localStorage.setItem(APP_CONFIG.STORAGE.CART_KEY, JSON.stringify(cart));
 }
 
 export function clearStoredCart() {
