@@ -3,4 +3,5 @@ export const appState = {
   filteredProducts: [],
   categories: [],
   cart: [],
+  selectedCategory: "all",
 };

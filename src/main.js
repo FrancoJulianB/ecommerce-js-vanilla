@@ -5,6 +5,8 @@ import { openProductModal, closeProductModal } from "./ui/modal.ui.js";
 import { getStoredCart, saveCart, clearStoredCart } from "./repositories/cart.repository.js";
 import { renderCart, updateCartBadge } from "./ui/cart.ui.js";
 import { showToast } from "./ui/toast.ui.js";
+import { getCategories } from "./services/category.service.js";
+import { renderCategories } from "./ui/category.ui.js";
 
 function findProductById(productId) {
   return appState.products.find((product) => product.id === productId);
@@ -145,21 +147,51 @@ function handleCheckout() {
 function handleSearchInput(event) {
   const searchText = event.target.value.toLowerCase().trim();
 
+  appState.selectedCategory = "all";
+
   appState.filteredProducts = appState.products.filter((product) =>
     product.title.toLowerCase().includes(searchText)
   );
 
   renderProducts(appState.filteredProducts);
+  renderCategories(appState.categories, appState.selectedCategory);
+}
+
+function handleCategoryClick(event) {
+  const button = event.target.closest("[data-action='filter-category']");
+
+  if (!button) {
+    return;
+  }
+
+  const selectedCategory = button.dataset.category;
+
+  appState.selectedCategory = selectedCategory;
+
+  if (selectedCategory === "all") {
+    appState.filteredProducts = [...appState.products];
+  } else {
+    appState.filteredProducts = appState.products.filter(
+      (product) => product.category === selectedCategory
+    );
+  }
+
+  document.querySelector("#searchInput").value = "";
+
+  renderProducts(appState.filteredProducts);
+  renderCategories(appState.categories, appState.selectedCategory);
 }
 
 async function initializeApplication() {
   appState.products = await getProducts();
   appState.filteredProducts = [...appState.products];
   appState.cart = getStoredCart();
+  appState.categories = await getCategories();
 
   renderProducts(appState.filteredProducts);
   updateCartBadge(appState.cart);
   renderCart(appState.cart);
+  renderCategories(appState.categories, appState.selectedCategory);
 
   document
     .querySelector("#productsContainer")
@@ -184,6 +216,10 @@ async function initializeApplication() {
   document
   .querySelector("#searchInput")
   .addEventListener("input", handleSearchInput);
+
+  document
+  .querySelector("#categoriesContainer")
+  .addEventListener("click", handleCategoryClick);
 }
 
 initializeApplication();
