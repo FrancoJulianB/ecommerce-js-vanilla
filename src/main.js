@@ -2,7 +2,7 @@ import { getProducts } from "./services/product.service.js";
 import { appState } from "./state/app.state.js";
 import { renderProducts } from "./ui/product.ui.js";
 import { openProductModal, closeProductModal } from "./ui/modal.ui.js";
-import { getStoredCart, saveCart } from "./repositories/cart.repository.js";
+import { getStoredCart, saveCart, clearStoredCart } from "./repositories/cart.repository.js";
 import { renderCart, updateCartBadge } from "./ui/cart.ui.js";
 
 function findProductById(productId) {
@@ -10,7 +10,11 @@ function findProductById(productId) {
 }
 
 function updateCartView() {
-  saveCart(appState.cart);
+  if (appState.cart.length === 0) {
+    clearStoredCart();
+  } else {
+    saveCart(appState.cart);
+  }
   updateCartBadge(appState.cart);
   renderCart(appState.cart);
 }
@@ -56,6 +60,17 @@ function decreaseCartItemQuantity(productId) {
   updateCartView();
 }
 
+function removeCartItem(productId) {
+  appState.cart = appState.cart.filter((item) => item.id !== productId);
+  updateCartView();
+}
+
+function clearCart() {
+  appState.cart = [];
+
+  updateCartView();
+}
+
 function handleProductCatalogClick(event) {
   const button = event.target.closest("[data-action='view-product']");
 
@@ -95,13 +110,23 @@ function handleCartClick(event) {
 
   const productId = Number(button.dataset.productId);
 
-  if (button.dataset.action === "increase-cart-item") {
-    increaseCartItemQuantity(productId);
-  }
+  switch (button.dataset.action) {
+    case "increase-cart-item":
+      increaseCartItemQuantity(productId);
+      break;
 
-  if (button.dataset.action === "decrease-cart-item") {
-    decreaseCartItemQuantity(productId);
+    case "decrease-cart-item":
+      decreaseCartItemQuantity(productId);
+      break;
+
+    case "remove-cart-item":
+      removeCartItem(productId);
+      break;
   }
+}
+
+function handleClearCart() {
+  clearCart();
 }
 
 async function initializeApplication() {
@@ -124,6 +149,10 @@ async function initializeApplication() {
   document
     .querySelector("#cartItemsContainer")
     .addEventListener("click", handleCartClick);
+
+  document
+  .querySelector("#clearCartButton")
+  .addEventListener("click", handleClearCart);
 }
 
 initializeApplication();
