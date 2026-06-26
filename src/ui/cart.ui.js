@@ -49,7 +49,7 @@ function createCartItem(cartItem) {
             data-action="remove-cart-item"
             data-product-id="${cartItem.id}"
           >
-            Eliminar
+            Delete
           </button>
         </div>
       </div>
@@ -74,7 +74,7 @@ export function renderCart(cart) {
   if (!cart.length) {
     cartItemsContainer.innerHTML = `
       <p class="text-center text-muted">
-        El carrito está vacío.
+        The cart is empty.
       </p>
     `;
 

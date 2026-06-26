@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,7 +26,7 @@
           data-bs-toggle="offcanvas"
           data-bs-target="#cartSidebar"
           aria-controls="cartSidebar"
-          aria-label="Abrir carrito"
+          aria-label="Open cart"
         >
           🛒
           <span
@@ -42,7 +42,7 @@
 
   <main class="container py-4">
     <section class="mb-4" aria-labelledby="search-title">
-      <h1 id="search-title" class="visually-hidden">Listado de productos</h1>
+      <h1 id="search-title" class="visually-hidden">Product listing</h1>
 
       <div class="row justify-content-center">
         <div class="col-12 col-md-8">
@@ -50,20 +50,20 @@
             id="searchInput"
             class="form-control"
             type="search"
-            placeholder="Buscar productos..."
-            aria-label="Buscar productos"
+            placeholder="Search products..."
+            aria-label="Search products"
           />
         </div>
       </div>
     </section>
 
     <section class="mb-4" aria-labelledby="categories-title">
-      <h2 id="categories-title" class="h4 mb-3">Categorías</h2>
+      <h2 id="categories-title" class="h4 mb-3">Categories</h2>
       <div id="categoriesContainer" class="d-flex flex-wrap gap-2"></div>
     </section>
 
     <section aria-labelledby="products-title">
-      <h2 id="products-title" class="visually-hidden">Productos</h2>
+      <h2 id="products-title" class="visually-hidden">Products</h2>
       <div id="productsContainer" class="row g-4"></div>
     </section>
   </main>
@@ -87,18 +87,18 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="modal-title h5">Vaciar carrito</h2>
+          <h2 class="modal-title h5">Clear cart</h2>
           <button
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
-            aria-label="Cerrar"
+            aria-label="Close"
           ></button>
         </div>
 
         <div class="modal-body">
           <p class="mb-0">
-            ¿Estás seguro de que querés eliminar todos los productos del carrito?
+            Are you sure you want to delete all products from the cart?
           </p>
         </div>
 
@@ -108,7 +108,7 @@
             class="btn btn-secondary"
             data-bs-dismiss="modal"
           >
-            Cancelar
+            Cancel
           </button>
 
           <button
@@ -116,7 +116,7 @@
             type="button"
             class="btn btn-danger"
           >
-            Eliminar productos
+            Delete products
           </button>
         </div>
       </div>
@@ -129,12 +129,12 @@
     aria-labelledby="cartSidebarLabel"
   >
     <div class="offcanvas-header">
-      <h2 id="cartSidebarLabel" class="offcanvas-title h5">Carrito</h2>
+      <h2 id="cartSidebarLabel" class="offcanvas-title h5">Cart</h2>
       <button
         type="button"
         class="btn-close"
         data-bs-dismiss="offcanvas"
-        aria-label="Cerrar carrito"
+        aria-label="Close cart"
       ></button>
     </div>
 
@@ -147,11 +147,11 @@
         </p>
 
         <button id="checkoutButton" class="btn btn-primary w-100 mb-2">
-          Finalizar compra
+          Checkout
         </button>
 
         <button id="clearCartButton" class="btn btn-danger w-100">
-          Eliminar todos los productos
+          Delete all products
         </button>
       </div>
     </div>
@@ -173,13 +173,13 @@
     >
       <div class="d-flex">
         <div id="appToastMessage" class="toast-body">
-          Operación realizada correctamente.
+          Operation completed successfully.
         </div>
         <button
           type="button"
           class="btn-close btn-close-white me-2 m-auto"
           data-bs-dismiss="toast"
-          aria-label="Cerrar"
+          aria-label="Close"
         ></button>
       </div>
     </div>

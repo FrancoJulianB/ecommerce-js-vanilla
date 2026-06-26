@@ -20,7 +20,7 @@ export function openProductModal(product) {
         type="button"
         class="btn-close"
         data-bs-dismiss="modal"
-        aria-label="Cerrar"
+        aria-label="Close"
       ></button>
     </div>
 
@@ -52,7 +52,7 @@ export function openProductModal(product) {
         class="btn btn-secondary"
         data-bs-dismiss="modal"
       >
-        Cerrar
+        Close
       </button>
 
       <button
@@ -61,7 +61,7 @@ export function openProductModal(product) {
         id="addToCartFromModalButton"
         data-product-id="${product.id}"
       >
-        Agregar al carrito
+        Add to cart
       </button>
     </div>
   `;
